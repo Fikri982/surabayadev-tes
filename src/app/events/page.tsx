@@ -9,7 +9,7 @@ export default function EventsPage() {
           Event <span className="text-primary">SurabayaDev</span>
         </h1>
         <p className="max-w-xl text-sm text-muted-foreground sm:text-base">
-          Temukan workshop, meetup, dan hackathon dari komunitas developer Surabaya.
+          Temukan workshop dan meetup dari komunitas developer Surabaya.
         </p>
       </div>
       <EventsBrowser initialEvents={events} />
