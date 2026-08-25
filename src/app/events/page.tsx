@@ -1,13 +1,15 @@
-import { EventsBrowser } from "@/components/EventsBrowser";
+import { EventsBrowser } from "@/components/events/EventsBrowser";
 import { events } from "@/lib/events";
 
 export default function EventsPage() {
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-4 py-10 sm:px-6">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Event</h1>
-        <p className="text-sm text-muted-foreground">
-          Temukan workshop, meetup, dan hackathon dari komunitas developer.
+    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-12 sm:px-6">
+      <div className="flex flex-col items-center gap-3 text-center">
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+          Event <span className="text-primary">SurabayaDev</span>
+        </h1>
+        <p className="max-w-xl text-sm text-muted-foreground sm:text-base">
+          Temukan workshop, meetup, dan hackathon dari komunitas developer Surabaya.
         </p>
       </div>
       <EventsBrowser initialEvents={events} />
