@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
+import { useRouter } from "next/navigation";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -30,6 +31,7 @@ export function RegisterButton({
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   async function handleRegister() {
     setIsLoading(true);
@@ -48,6 +50,7 @@ export function RegisterButton({
 
       localStorage.setItem(`registered_${eventId}`, "true");
       onSuccess(data.quotaRemaining);
+      router.refresh();
     } catch {
       setError("Gagal mendaftar, coba lagi.");
     } finally {

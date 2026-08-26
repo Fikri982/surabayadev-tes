@@ -1,6 +1,10 @@
 import { EventsBrowser } from "@/components/events/EventsBrowser";
 import { events } from "@/lib/events";
 
+// quotaRemaining berubah lewat registrasi, jadi halaman ini harus selalu
+// dirender ulang per request, bukan di-cache statis.
+export const dynamic = "force-dynamic";
+
 export default function EventsPage() {
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-12 sm:px-6">

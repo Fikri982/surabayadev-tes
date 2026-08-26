@@ -1,7 +1,7 @@
 import type { Event } from "@/lib/types";
 
 // Dummy seed data untuk kebutuhan demo.
-export const events: Event[] = [
+const seedEvents: Event[] = [
   {
     id: "workshop-nextjs-16",
     title: "Workshop: Next.js 16 & App Router Mendalam",
@@ -14,7 +14,9 @@ export const events: Event[] = [
       "Sertifikat digital",
       "Sesi tanya jawab langsung dengan fasilitator",
     ],
-    speakers: [{ name: "Raka Wibisono", role: "Frontend Engineer, startup lokal" }],
+    speakers: [
+      { name: "Raka Wibisono", role: "Frontend Engineer, startup lokal" },
+    ],
     date: "2026-09-05T09:00:00.000Z",
     location: "Coworking Space Surabaya",
     quota: 40,
@@ -118,3 +120,9 @@ export const events: Event[] = [
     quotaRemaining: 8,
   },
 ];
+
+declare global {
+  var __events: Event[] | undefined;
+}
+
+export const events: Event[] = (globalThis.__events ??= seedEvents);
