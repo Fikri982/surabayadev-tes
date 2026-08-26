@@ -1,16 +1,17 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 type SearchBarProps = {
   onSearch: (query: string) => void;
+  isLoading?: boolean;
   className?: string;
 };
 
-export function SearchBar({ onSearch, className }: SearchBarProps) {
+export function SearchBar({ onSearch, isLoading, className }: SearchBarProps) {
   const [value, setValue] = useState("");
   const isFirstRender = useRef(true);
 
@@ -29,7 +30,11 @@ export function SearchBar({ onSearch, className }: SearchBarProps) {
 
   return (
     <div className={cn("relative", className)}>
-      <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+      {isLoading ? (
+        <Loader2 className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+      ) : (
+        <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+      )}
       <Input
         type="search"
         value={value}

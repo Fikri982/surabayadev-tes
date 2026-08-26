@@ -58,7 +58,7 @@ export function RegisterButton({
   if (isRegistered) {
     return (
       <Button disabled variant="secondary" className="w-fit gap-1.5">
-        <CheckCircle2 className="size-4" />
+        <CheckCircle2 className="size-4 animate-in zoom-in-50 duration-300" />
         Sudah terdaftar
       </Button>
     );
