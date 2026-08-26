@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
 import { EventImage } from "@/components/events/EventImage";
-import { QuotaBadge } from "@/components/events/QuotaBadge";
+import { EventRegistration } from "@/components/events/EventRegistration";
 import { SpeakerAvatar } from "@/components/events/SpeakerAvatar";
 import { EVENT_CATEGORY_META, getEventCategory } from "@/lib/event-category";
 import { formatEventDate, getEventStatus } from "@/lib/format";
@@ -55,7 +55,11 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
             {event.location}
           </span>
         </div>
-        <QuotaBadge quota={event.quota} quotaRemaining={event.quotaRemaining} />
+        <EventRegistration
+          eventId={event.id}
+          quota={event.quota}
+          initialQuotaRemaining={event.quotaRemaining}
+        />
       </div>
 
       <div className="flex flex-col gap-2">
