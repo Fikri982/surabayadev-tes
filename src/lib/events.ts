@@ -17,6 +17,7 @@ const seedEvents: Event[] = [
     speakers: [
       { name: "Raka Wibisono", role: "Frontend Engineer, startup lokal" },
     ],
+    price: 75000,
     date: "2026-09-05T09:00:00.000Z",
     location: "Coworking Space Surabaya",
     quota: 40,
@@ -53,6 +54,7 @@ const seedEvents: Event[] = [
       "Sertifikat digital",
     ],
     speakers: [{ name: "Salsabila Ayu", role: "Software Engineer" }],
+    price: 50000,
     date: "2026-09-27T09:00:00.000Z",
     location: "Creative Hub Surabaya",
     quota: 35,

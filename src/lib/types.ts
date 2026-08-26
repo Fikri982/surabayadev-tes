@@ -12,6 +12,7 @@ export type Event = {
   about?: string;
   benefits?: string[];
   speakers?: EventSpeaker[];
+  price?: number; // dalam Rupiah, undefined/0 berarti gratis
   date: string; // ISO string
   location: string;
   quota: number;

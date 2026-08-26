@@ -6,6 +6,18 @@ export function formatEventDate(dateIso: string) {
   }).format(new Date(dateIso));
 }
 
+export function formatPrice(price?: number) {
+  if (!price) {
+    return "Gratis";
+  }
+
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(price);
+}
+
 export function getEventStatus(dateIso: string) {
   const diffMs = new Date(dateIso).getTime() - Date.now();
   const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));

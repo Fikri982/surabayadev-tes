@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CategoryBanner } from "@/components/shared/CategoryBanner";
+import { PriceTag } from "@/components/shared/PriceTag";
 import { QuotaBadge } from "@/components/shared/QuotaBadge";
 import { EVENT_CATEGORY_META, getEventCategory } from "@/lib/event-category";
 import { formatEventDate, getEventStatus } from "@/lib/format";
@@ -52,7 +53,10 @@ export function EventCard({ event }: EventCardProps) {
           <p className="line-clamp-2 text-sm text-muted-foreground">
             {event.description}
           </p>
-          <QuotaBadge quota={event.quota} quotaRemaining={event.quotaRemaining} />
+          <div className="flex items-center justify-between gap-2">
+            <QuotaBadge quota={event.quota} quotaRemaining={event.quotaRemaining} />
+            <PriceTag price={event.price} />
+          </div>
         </CardContent>
         <CardFooter>
           <span className="inline-flex items-center gap-1.5 text-sm font-medium text-primary">

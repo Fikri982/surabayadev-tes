@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
 import { CategoryBanner } from "@/components/shared/CategoryBanner";
+import { PriceTag } from "@/components/shared/PriceTag";
 import { EventRegistration } from "@/components/events/EventRegistration";
 import { SpeakerAvatar } from "@/components/events/SpeakerAvatar";
 import { EVENT_CATEGORY_META, getEventCategory } from "@/lib/event-category";
@@ -56,6 +57,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
             {event.location}
           </span>
         </div>
+        <PriceTag price={event.price} className="text-lg" />
         <EventRegistration
           eventId={event.id}
           quota={event.quota}
