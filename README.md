@@ -54,6 +54,7 @@ Data event disimpan sebagai array in-memory, bukan database sungguhan. Ini keput
 
 - Data (termasuk `quotaRemaining` setelah registrasi) **reset setiap kali server restart atau redeploy**.
 - Status "sudah terdaftar" tetap tersimpan di `localStorage` browser walau data server reset, karena keduanya independen satu sama lain.
+- Di deployment serverless seperti Vercel, tiap request API bisa dieksekusi di instance function yang berbeda-beda (cold start, auto-scaling, dsb). Karena state disimpan di memori proses (lewat `globalThis` supaya konsisten dalam satu instance), perubahan `quotaRemaining` dari satu request **tidak terjamin langsung terlihat** di request lain yang jatuh ke instance berbeda. Ini batasan bawaan dari pendekatan in-memory di lingkungan serverless, bukan bug tersembunyi. Solusi production yang sesungguhnya butuh persistent store (database/KV) yang berada di luar scope jalur Frontend Developer.
 
 ## Live Demo
 
