@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
-import { EventImage } from "@/components/events/EventImage";
+import { CategoryBanner } from "@/components/shared/CategoryBanner";
 import { EventRegistration } from "@/components/events/EventRegistration";
 import { SpeakerAvatar } from "@/components/events/SpeakerAvatar";
 import { EVENT_CATEGORY_META, getEventCategory } from "@/lib/event-category";
@@ -21,7 +21,8 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
   }
 
   const status = getEventStatus(event.date);
-  const categoryLabel = EVENT_CATEGORY_META[getEventCategory(event.id)].label;
+  const { icon: categoryIcon, label: categoryLabel } =
+    EVENT_CATEGORY_META[getEventCategory(event.id)];
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-4 py-12 sm:px-6">
@@ -34,7 +35,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
       </Link>
 
       <div className="relative h-48 overflow-hidden rounded-xl sm:h-64">
-        <EventImage eventId={event.id} />
+        <CategoryBanner icon={categoryIcon} />
         <span className="absolute right-3 top-3 z-10 inline-flex items-center rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-primary shadow-sm backdrop-blur-sm">
           {status.label}
         </span>

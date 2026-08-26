@@ -8,8 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { EventImage } from "@/components/events/EventImage";
-import { QuotaBadge } from "@/components/events/QuotaBadge";
+import { CategoryBanner } from "@/components/shared/CategoryBanner";
+import { QuotaBadge } from "@/components/shared/QuotaBadge";
 import { EVENT_CATEGORY_META, getEventCategory } from "@/lib/event-category";
 import { formatEventDate, getEventStatus } from "@/lib/format";
 import type { Event } from "@/lib/types";
@@ -20,13 +20,14 @@ type EventCardProps = {
 
 export function EventCard({ event }: EventCardProps) {
   const status = getEventStatus(event.date);
-  const categoryLabel = EVENT_CATEGORY_META[getEventCategory(event.id)].label;
+  const { icon: categoryIcon, label: categoryLabel } =
+    EVENT_CATEGORY_META[getEventCategory(event.id)];
 
   return (
     <Link href={`/events/${event.id}`} className="block h-full">
       <Card className="relative h-full transition-shadow hover:shadow-md">
         <div className="-mx-4 -mt-4 h-24 overflow-hidden rounded-t-xl">
-          <EventImage eventId={event.id} />
+          <CategoryBanner icon={categoryIcon} />
         </div>
         <span className="absolute right-3 top-3 z-10 inline-flex items-center rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-primary shadow-sm backdrop-blur-sm">
           {status.label}

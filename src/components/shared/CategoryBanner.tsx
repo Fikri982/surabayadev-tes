@@ -1,12 +1,10 @@
-import { EVENT_CATEGORY_META, getEventCategory } from "@/lib/event-category";
+import type { LucideIcon } from "lucide-react";
 
-type EventImageProps = {
-  eventId: string;
+type CategoryBannerProps = {
+  icon: LucideIcon;
 };
 
-export function EventImage({ eventId }: EventImageProps) {
-  const { icon: Icon } = EVENT_CATEGORY_META[getEventCategory(eventId)];
-
+export function CategoryBanner({ icon: Icon }: CategoryBannerProps) {
   return (
     <div className="relative flex h-full w-full items-center justify-center bg-linear-to-br from-primary to-primary-hover">
       <div

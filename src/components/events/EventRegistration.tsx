@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { QuotaBadge } from "@/components/events/QuotaBadge";
+import { QuotaBadge } from "@/components/shared/QuotaBadge";
 import { RegisterButton } from "@/components/events/RegisterButton";
 
 type EventRegistrationProps = {
