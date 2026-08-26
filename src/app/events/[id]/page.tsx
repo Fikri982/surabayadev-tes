@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ViewTransition } from "react";
 import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
 import { CategoryBanner } from "@/components/shared/CategoryBanner";
 import { PriceTag } from "@/components/shared/PriceTag";
@@ -26,17 +27,24 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
     EVENT_CATEGORY_META[getEventCategory(event.id)];
 
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-4 py-12 sm:px-6">
+    <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-12 sm:px-6">
+      <ViewTransition
+        enter={{ "nav-forward": "nav-forward", "nav-back": "nav-back", default: "none" }}
+        exit={{ "nav-forward": "nav-forward", "nav-back": "nav-back", default: "none" }}
+        default="none"
+      >
+      <div className="flex flex-col gap-6">
       <Link
         href="/events"
         className="inline-flex w-fit items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        transitionTypes={["nav-back"]}
       >
         <ArrowLeft className="size-4" />
         Kembali ke daftar event
       </Link>
 
-      <div className="relative h-48 overflow-hidden rounded-xl sm:h-64">
-        <CategoryBanner icon={categoryIcon} />
+      <div className="relative h-48 sm:h-64">
+        <CategoryBanner icon={categoryIcon} className="rounded-xl" />
         <span className="absolute right-3 top-3 z-10 inline-flex items-center rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-primary shadow-sm backdrop-blur-sm">
           {status.label}
         </span>
@@ -65,11 +73,13 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <span className="text-xs font-semibold uppercase tracking-wide text-primary">
-          Tentang
-        </span>
-        <h2 className="text-lg font-semibold tracking-tight">Tentang Event</h2>
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs font-semibold uppercase tracking-wide text-primary">
+            Tentang
+          </span>
+          <h2 className="text-lg font-semibold tracking-tight">Tentang Event</h2>
+        </div>
         <p className="text-sm leading-relaxed text-foreground/90">
           {event.about ?? event.description}
         </p>
@@ -77,10 +87,12 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
       {event.benefits && event.benefits.length > 0 && (
         <div className="flex flex-col gap-3">
-          <span className="text-xs font-semibold uppercase tracking-wide text-primary">
-            Benefit
-          </span>
-          <h2 className="text-lg font-semibold tracking-tight">Yang Kamu Dapatkan</h2>
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-semibold uppercase tracking-wide text-primary">
+              Benefit
+            </span>
+            <h2 className="text-lg font-semibold tracking-tight">Yang Kamu Dapatkan</h2>
+          </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {event.benefits.map((benefit, index) => (
               <div
@@ -99,12 +111,12 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
 
       {event.speakers && event.speakers.length > 0 && (
         <div className="flex flex-col gap-3">
-          <span className="text-xs font-semibold uppercase tracking-wide text-primary">
-            Pembicara
-          </span>
-          <h2 className="text-lg font-semibold tracking-tight">
-            {event.speakers.length > 1 ? "Para Pembicara" : "Pembicara"}
-          </h2>
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-semibold uppercase tracking-wide text-primary">
+              Pembicara
+            </span>
+            <h2 className="text-lg font-semibold tracking-tight">Pengisi Acara</h2>
+          </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {event.speakers.map((speaker) => (
               <div
@@ -126,6 +138,8 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
           </div>
         </div>
       )}
+      </div>
+      </ViewTransition>
     </main>
   );
 }

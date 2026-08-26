@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
+import { CheckCircle2, ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -13,6 +15,7 @@ import { PriceTag } from "@/components/shared/PriceTag";
 import { QuotaBadge } from "@/components/shared/QuotaBadge";
 import { EVENT_CATEGORY_META, getEventCategory } from "@/lib/event-category";
 import { formatEventDate, getEventStatus } from "@/lib/format";
+import { useIsEventRegistered } from "@/lib/use-is-event-registered";
 import type { Event } from "@/lib/types";
 
 type EventCardProps = {
@@ -21,22 +24,35 @@ type EventCardProps = {
 
 export function EventCard({ event }: EventCardProps) {
   const status = getEventStatus(event.date);
+  const isRegistered = useIsEventRegistered(event.id);
   const { icon: categoryIcon, label: categoryLabel } =
     EVENT_CATEGORY_META[getEventCategory(event.id)];
 
   return (
-    <Link href={`/events/${event.id}`} className="block h-full">
+    <Link
+      href={`/events/${event.id}`}
+      className="block h-full"
+      transitionTypes={["nav-forward"]}
+    >
       <Card className="relative h-full transition-shadow hover:shadow-md">
-        <div className="-mx-4 -mt-4 h-24 overflow-hidden rounded-t-xl">
-          <CategoryBanner icon={categoryIcon} />
+        <div className="-mx-4 -mt-4 h-24">
+          <CategoryBanner icon={categoryIcon} className="rounded-t-xl" />
         </div>
         <span className="absolute right-3 top-3 z-10 inline-flex items-center rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-primary shadow-sm backdrop-blur-sm">
           {status.label}
         </span>
         <CardHeader>
-          <span className="inline-flex w-fit items-center rounded-full bg-primary-light px-2.5 py-0.5 text-xs font-medium text-primary">
-            {categoryLabel}
-          </span>
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="inline-flex w-fit items-center rounded-full bg-primary-light px-2.5 py-0.5 text-xs font-medium text-primary">
+              {categoryLabel}
+            </span>
+            {isRegistered && (
+              <span className="inline-flex w-fit items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+                <CheckCircle2 className="size-3" />
+                Terdaftar
+              </span>
+            )}
+          </div>
           <CardTitle className="mt-1">{event.title}</CardTitle>
           <CardDescription className="flex flex-col gap-1">
             <span className="flex items-center gap-1.5">

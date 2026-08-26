@@ -1,18 +1,11 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-function subscribe() {
-  return () => {};
-}
-
-function getServerSnapshot() {
-  return false;
-}
+import { useIsEventRegistered } from "@/lib/use-is-event-registered";
 
 type RegisterButtonProps = {
   eventId: string;
@@ -25,11 +18,7 @@ export function RegisterButton({
   quotaRemaining,
   onSuccess,
 }: RegisterButtonProps) {
-  const isRegistered = useSyncExternalStore(
-    subscribe,
-    () => localStorage.getItem(`registered_${eventId}`) === "true",
-    getServerSnapshot
-  );
+  const isRegistered = useIsEventRegistered(eventId);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 

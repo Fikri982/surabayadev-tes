@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { startTransition, useCallback, useMemo, useState, ViewTransition } from "react";
 import { SearchBar } from "@/components/shared/SearchBar";
 import { CategoryFilter } from "@/components/events/CategoryFilter";
 import { EventList } from "@/components/events/EventList";
@@ -22,10 +22,18 @@ export function EventsBrowser({ initialEvents }: EventsBrowserProps) {
     try {
       const res = await fetch(`/api/events?search=${encodeURIComponent(query)}`);
       const data = await res.json();
-      setEvents(data);
+      startTransition(() => {
+        setEvents(data);
+      });
     } finally {
       setIsSearching(false);
     }
+  }, []);
+
+  const handleCategoryChange = useCallback((value: "all" | EventCategory) => {
+    startTransition(() => {
+      setCategory(value);
+    });
   }, []);
 
   const visibleEvents = useMemo(
@@ -44,7 +52,7 @@ export function EventsBrowser({ initialEvents }: EventsBrowserProps) {
           isLoading={isSearching}
           className="w-full sm:max-w-sm"
         />
-        <CategoryFilter value={category} onChange={setCategory} />
+        <CategoryFilter value={category} onChange={handleCategoryChange} />
       </div>
       <div
         className={cn(
@@ -52,7 +60,15 @@ export function EventsBrowser({ initialEvents }: EventsBrowserProps) {
           isSearching && "opacity-50"
         )}
       >
-        <EventList events={visibleEvents} />
+        <ViewTransition
+          key={visibleEvents.map((event) => event.id).join(",")}
+          name="event-list"
+          share="auto"
+          enter="auto"
+          default="none"
+        >
+          <EventList events={visibleEvents} />
+        </ViewTransition>
       </div>
     </div>
   );
