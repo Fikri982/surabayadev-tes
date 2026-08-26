@@ -1,14 +1,14 @@
 # Event SurabayaDev
 
-Aplikasi web untuk menjelajah, mencari, dan mendaftar event komunitas developer (workshop & meetup). Dibangun sebagai bagian dari **SurabayaDev Developer Technical Assessment** — jalur Frontend Developer.
+Aplikasi web untuk menjelajah, mencari, dan mendaftar event komunitas developer (workshop & meetup). Dibangun sebagai bagian dari **SurabayaDev Developer Technical Assessment**, jalur Frontend Developer.
 
 ## Fitur
 
-- **Daftar event** — grid event dengan info tanggal, lokasi, kategori, kuota, dan harga
-- **Pencarian event** — input dengan debounce ~400ms, filter dilakukan di server lewat API
-- **Filter kategori** — Workshop / Meetup, digabung dengan hasil pencarian
-- **Detail event** — deskripsi lengkap, benefit, pembicara, harga (gratis/berbayar)
-- **Registrasi event** — cek kuota di server sebelum mendaftar, status "sudah terdaftar" disimpan di `localStorage` (pengganti auth karena scope tidak mencakup login)
+- **Daftar event**: grid event lengkap dengan info tanggal, lokasi, kategori, kuota, dan harga
+- **Pencarian event**: input dengan debounce ~400ms, filter dilakukan di server lewat API
+- **Filter kategori**: Workshop / Meetup, bisa digabung dengan hasil pencarian
+- **Detail event**: deskripsi lengkap, benefit, pembicara, dan info harga (gratis/berbayar)
+- **Registrasi event**: kuota dicek di server sebelum pendaftaran diproses. Status "sudah terdaftar" disimpan di `localStorage` sebagai pengganti auth, karena scope tidak mencakup login
 - Transisi halaman halus (View Transitions API) dan notifikasi toast
 
 ## Stack
@@ -50,11 +50,11 @@ src/
 
 ## Catatan: Data In-Memory
 
-Data event disimpan sebagai array in-memory (bukan database sungguhan) — ini keputusan sadar sesuai scope demo frontend, bukan kekurangan. Konsekuensinya:
+Data event disimpan sebagai array in-memory, bukan database sungguhan. Ini keputusan sadar sesuai scope demo frontend, bukan kekurangan. Konsekuensinya:
 
 - Data (termasuk `quotaRemaining` setelah registrasi) **reset setiap kali server restart atau redeploy**.
 - Status "sudah terdaftar" tetap tersimpan di `localStorage` browser walau data server reset, karena keduanya independen satu sama lain.
 
 ## Live Demo
 
-_(akan ditambahkan setelah deploy ke Vercel)_
+[surabayadev-tes.vercel.app](https://surabayadev-tes.vercel.app)
