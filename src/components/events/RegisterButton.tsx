@@ -2,6 +2,7 @@
 
 import { useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -30,12 +31,10 @@ export function RegisterButton({
     getServerSnapshot
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   async function handleRegister() {
     setIsLoading(true);
-    setError(null);
 
     try {
       const res = await fetch(`/api/events/${eventId}/register`, {
@@ -44,15 +43,16 @@ export function RegisterButton({
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error ?? "Gagal mendaftar");
+        toast.error(data.error ?? "Gagal mendaftar");
         return;
       }
 
       localStorage.setItem(`registered_${eventId}`, "true");
       onSuccess(data.quotaRemaining);
       router.refresh();
+      toast.success("Berhasil daftar!");
     } catch {
-      setError("Gagal mendaftar, coba lagi.");
+      toast.error("Gagal mendaftar, coba lagi.");
     } finally {
       setIsLoading(false);
     }
@@ -76,12 +76,9 @@ export function RegisterButton({
   }
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <Button onClick={handleRegister} disabled={isLoading} className="w-fit">
-        {isLoading && <Loader2 className="size-4 animate-spin" />}
-        {isLoading ? "Mendaftar..." : "Daftar Sekarang"}
-      </Button>
-      {error && <span className="text-xs text-destructive">{error}</span>}
-    </div>
+    <Button onClick={handleRegister} disabled={isLoading} className="w-fit">
+      {isLoading && <Loader2 className="size-4 animate-spin" />}
+      {isLoading ? "Mendaftar..." : "Daftar Sekarang"}
+    </Button>
   );
 }
